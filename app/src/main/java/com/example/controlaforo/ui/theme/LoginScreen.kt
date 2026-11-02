@@ -1,4 +1,4 @@
-package com.example.controlaforo
+package com.example.controlaforo.ui.theme
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
