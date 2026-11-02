@@ -18,7 +18,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
-fun MainScreen(onLogout: () -> Unit) {
+fun MainScreen(
+    onLogout: () -> Unit,
+    onOpenHistorial: () -> Unit = {},
+    onOpenPerfiles: () -> Unit = {}
+) {
     val context = LocalContext.current
     val db = FirebaseFirestore.getInstance()
     val currentUserEmail = FirebaseAuth.getInstance().currentUser?.email ?: "Usuario desconocido"
@@ -74,7 +78,7 @@ fun MainScreen(onLogout: () -> Unit) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Box(modifier = Modifier.fillMaxSize()) {
 
-            // Botón superior derecho de configuración (Texto simple en lugar de icono)
+
             TextButton(
                 onClick = {
                     nuevoAforoInput = aforoMaximo.toString()
@@ -127,7 +131,18 @@ fun MainScreen(onLogout: () -> Unit) {
                     }
                 }
 
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    OutlinedButton(onClick = onOpenHistorial) {
+                        Text(text = "📋 Historial")
+                    }
+                    OutlinedButton(onClick = onOpenPerfiles) {
+                        Text(text = "🎨 Perfiles")
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
                 TextButton(onClick = onLogout) {
                     Text(text = "Cerrar Sesión", color = MaterialTheme.colorScheme.primary)
                 }
